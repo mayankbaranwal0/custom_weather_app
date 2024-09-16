@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/services/preferences_service.dart';
 
 import 'homepage_screen.dart';
 
@@ -11,11 +14,41 @@ class HelpScreen extends StatefulWidget {
 }
 
 class _HelpScreenState extends State<HelpScreen> {
-  _navigateToHomepage() {
+  Timer? _timer;
+  int _countdown = 5;
+
+  @override
+  void initState() {
+    super.initState();
+    _startCountdown();
+  }
+
+  void _startCountdown() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_countdown > 0) {
+          _countdown--;
+        } else {
+          _navigateToHomepage();
+        }
+      });
+    });
+  }
+
+  void _navigateToHomepage() {
+    _timer?.cancel();
+    // print('Homepage navigating'); // debugging log
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const HomepageScreen()),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -61,6 +94,8 @@ class _HelpScreenState extends State<HelpScreen> {
                     backgroundColor: Colors.blueGrey,
                   ),
                   onPressed: () {
+                    preferencesService.setTappedSkip();
+                    // print('Skip button tapped'); // debugging log
                     _navigateToHomepage();
                   },
                   child: const Text(
@@ -69,6 +104,14 @@ class _HelpScreenState extends State<HelpScreen> {
                       color: Colors.white,
                       fontSize: 18,
                     ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Loading in $_countdown secs...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
                   ),
                 ),
               ],
