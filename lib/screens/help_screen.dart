@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/services/preferences_service.dart';
 
-import 'homepage_screen.dart';
+import 'home_screen.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -41,7 +41,7 @@ class _HelpScreenState extends State<HelpScreen> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const HomepageScreen()),
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
   }
 
@@ -78,7 +78,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 const Text(
                   'We show weather for you',
                   style: TextStyle(
-                    fontSize: 27,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.blueAccent,
                   ),
@@ -88,7 +88,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 32,
+                      horizontal: 25,
                       vertical: 10,
                     ),
                     backgroundColor: Colors.blueGrey,
@@ -102,7 +102,7 @@ class _HelpScreenState extends State<HelpScreen> {
                     'Skip',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 15,
                     ),
                   ),
                 ),
